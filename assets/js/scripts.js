@@ -252,7 +252,7 @@ ZZ.Masker.prototype.mouseoutHandler = function() {
 ZZ.Masker.prototype.animate = function() {
 	if(this.isHovered) {
 		var mask_num = (Math.floor( Math.random() * this.num_masks ) + 1);
-		this.elem.style.webkitMaskImage = 'url("/assets/img/no-fun-mask-' + mask_num + '.png")';
+		this.elem.style.webkitMaskImage = 'url("assets/img/no-fun-mask-' + mask_num + '.png")';
 	}
 	window.requestAnimationFrame( this.animate.bind( this ) );
 };

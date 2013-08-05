@@ -411,7 +411,7 @@ a {
 
 .page-header {
 	mask: url(#m1);
-	-webkit-mask-image: url('/assets/img/no-fun-mask-1.png');
+	-webkit-mask-image: url('../img/no-fun-mask-1.png');
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: top center;
 	-webkit-mask-size: contain;
