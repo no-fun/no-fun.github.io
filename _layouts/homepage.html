@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<title>{{ page.title }}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<script src="/assets/js/modernizer.js"></script>
+</head>
+<body>
+
+	
+	<header class="page-header mask" data-num-masks="6">
+		<h1 class="page-title">No Fun</h1>
+		<div class="page-title-inner groover" data-groover-panes="4"></div>
+		<div class="page-title-inner webcam"></div>
+	</header>
+	
+	<div class="page-content">
+		{{ content }}
+	</div>
+	
+	<svg height="0">
+		<mask id="mask">
+			<image xlink:href=".assets/img/no-fun-mask-1.png" />
+		</mask>
+		<mask id="m1" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+		<linearGradient id="g" gradientUnits="objectBoundingBox" x2="0" y2="1">
+			<stop stop-color="white" offset="0"/>
+			<stop stop-color="white" stop-opacity="0" offset="1"/>
+		</linearGradient>
+		<circle cx="0.25" cy="0.25" r="0.25" id="circle" fill="white"/>
+		<rect x="0.5" y="0.2" width="0.5" height="0.8" fill="url(#g)"/>
+		</mask>
+	</svg>
+	
+	<script src="/assets/js/scripts.js"></script>
+	
+</body>
+</html>
