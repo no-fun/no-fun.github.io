@@ -8,9 +8,11 @@
 	<script src="assets/js/modernizer.js"></script>
 </head>
 <body>
-
 	
-	<header class="page-header mask" data-num-masks="6">
+	<div class="environment">
+	<div class="container scroller" data-max-z-height="-2000">
+	
+	<header class="page-header mask scroll-section" data-num-masks="6">
 		<h1 class="page-title">No Fun</h1>
 		<div class="page-title-inner groover" data-groover-panes="4"></div>
 		<div class="page-title-inner webcam"></div>
@@ -18,6 +20,9 @@
 	
 	<div class="page-content">
 		{{ content }}
+	</div>
+	
+	</div>
 	</div>
 	
 	<svg height="0">
@@ -35,6 +40,6 @@
 	</svg>
 	
 	<script src="assets/js/scripts.js"></script>
-	
+
 </body>
 </html>

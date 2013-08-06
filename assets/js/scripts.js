@@ -19,7 +19,7 @@
 								 window[ prefix + 'CancelRequestAnimationFrame' ];
 	}
 
-	// fallback to setTimeout and clearTimeout if either request/cancel is not supported
+	// fallback to setTimeout and clearTimeout if either request/cancel is NOFUNt supported
 	if ( !requestAnimationFrame || !cancelAnimationFrame ) {
 	requestAnimationFrame = function( callback, element ) {
 		 var currTime = new Date().getTime();
@@ -66,19 +66,19 @@ Element.prototype.toggleClassName = function (a) {
 	this[this.hasClassName(a) ? "removeClassName" : "addClassName"](a);
 };
 
-// ======================= ZZ site script ===============================
+// ======================= NOFUN site script ===============================
 
 
 // global object
-var ZZ = window.ZZ = {};
+var NOFUN = window.NOFUN = {};
 
-ZZ.init = function() {
+NOFUN.init = function() {
 	var i, len;
-	
+		
 	if ( Modernizr.csstransitions ) {
-	ZZ.colorT = ~~(Math.random()*18);
+	NOFUN.colorT = ~~(Math.random()*18);
 	document.body.addClassName('transitions-ready');
-	ZZ.changeColor();
+	NOFUN.changeColor();
 	}
 
 	if ( !document.querySelectorAll ) {
@@ -90,40 +90,50 @@ ZZ.init = function() {
 	return;
 	}
 
-	ZZ.groovers = [];
+	NOFUN.groovers = [];
 	var grooverElems = document.querySelectorAll('.groover');
 	len = grooverElems.length;
 	
 	for ( i=0; i<len; i++ ) {
-		ZZ.groovers.push( new ZZ.Groover( grooverElems[i] ) );
+		NOFUN.groovers.push( new NOFUN.Groover( grooverElems[i] ) );
 	}
 	
 	// Do some maskin'
 	// TODO: add feature detection
-	ZZ.masks = [];
+	NOFUN.masks = [];
 	var maskElems = document.querySelectorAll('.mask');
 	len = maskElems.length;
 	
 	for ( i=0; i<len; i++ ) {
-		ZZ.masks.push( new ZZ.Masker( maskElems[i] ) );
+		NOFUN.masks.push( new NOFUN.Masker( maskElems[i] ) );
 	}
 	
+	// Scroll time
+	
+	NOFUN.scrollers = [];
+	var scrollerElems = document.querySelectorAll('.scroller');
+	len = scrollerElems.length;
+	
+	for ( i=0; i<len; i++ ) {
+		NOFUN.scrollers.push( new NOFUN.Scroller( scrollerElems[i] ) );
+	}
+
 
 };
 
 // cycles link colors
-ZZ.changeColor = function() {
-	document.body.removeClassName( 'color' + ZZ.colorT % 18 );
-	ZZ.colorT++;
-	document.body.addClassName( 'color' + ZZ.colorT % 18 );
-	setTimeout( ZZ.changeColor, 3000 );
+NOFUN.changeColor = function() {
+	document.body.removeClassName( 'color' + NOFUN.colorT % 18 );
+	NOFUN.colorT++;
+	document.body.addClassName( 'color' + NOFUN.colorT % 18 );
+	setTimeout( NOFUN.changeColor, 3000 );
 };
 
 
 
 // ======================= Groover ===============================
 // generates funky H1 super text-shadows
-ZZ.Groover = function( elem ) {
+NOFUN.Groover = function( elem ) {
 	
 	this.elem = elem;
 	this.panes = parseInt( this.elem.getAttribute('data-groover-panes'), 10 );
@@ -143,42 +153,42 @@ ZZ.Groover = function( elem ) {
 
 // ----- event handling ----- //
 
-ZZ.Groover.prototype.handleEvent = function( event ) {
+NOFUN.Groover.prototype.handleEvent = function( event ) {
 	var handlerMethod = event.type + 'Handler';
 	if ( this[ handlerMethod ] ) {
 	this[ handlerMethod ]( event );
 	}
 };
 
-ZZ.Groover.prototype.mouseoverHandler = function() {
+NOFUN.Groover.prototype.mouseoverHandler = function() {
 	this.isHovered = true;
 };
 
-ZZ.Groover.prototype.mouseoutHandler = function() {
+NOFUN.Groover.prototype.mouseoutHandler = function() {
 	this.isHovered = false;
 };
 
 // ----- methods ----- //
 
-ZZ.Groover.prototype.getTextShadow = function( x, y, hue, alpha ) {
+NOFUN.Groover.prototype.getTextShadow = function( x, y, hue, alpha ) {
 	return ', ' + x + 'px ' + y + 'px hsla(' + hue + ', 100%, 45%, ' + alpha + ')';
 };
 
-ZZ.Groover.prototype.getGradientStop = function( stop, hue, alpha ) {
+NOFUN.Groover.prototype.getGradientStop = function( stop, hue, alpha ) {
 	return ', hsla(' + hue + ', 100%, 45%, ' + alpha + ') ' + stop + '%';
 };
 
-ZZ.Groover.prototype.animateTextShadow = function() {
+NOFUN.Groover.prototype.animateTextShadow = function() {
 	var shadows = '0 0 transparent',
 		 i, j, x, y;
 
 	// renders rainbow river
 	for ( i = 1; i < this.panes; i++ ) {
-		var normI = i / this.panes,
+		var NOFUNrmI = i / this.panes,
 			hue = this.isHovered ?
-				 ( normI * 400 + this.colorTime * 9 ) % 360 :
-				 ( normI * 50 + this.colorTime * 0.5 ) % 360,
-			alpha = this.isHovered ? 1 : ( 1 - normI ) * 0.9;
+				 ( NOFUNrmI * 400 + this.colorTime * 9 ) % 360 :
+				 ( NOFUNrmI * 50 + this.colorTime * 0.5 ) % 360,
+			alpha = this.isHovered ? 1 : ( 1 - NOFUNrmI ) * 0.9;
 		hue = this.isHovered ? ( Math.floor( ( hue / 360 ) * 6 ) / 6 ) * 360 : hue;
 		x = i * 2;
 		y = i * 2;
@@ -190,7 +200,7 @@ ZZ.Groover.prototype.animateTextShadow = function() {
 	window.requestAnimationFrame( this.animateTextShadow.bind( this ) );
 };
 
-ZZ.Groover.prototype.animateBackgroundGradient = function() {
+NOFUN.Groover.prototype.animateBackgroundGradient = function() {
 	// TODO: add support for unprefixed, moz, and ms ('to bottom' instead of 'top')
 	var background = '-webkit-linear-gradient(top ',
 		 i, j, stops, stop;
@@ -199,14 +209,14 @@ ZZ.Groover.prototype.animateBackgroundGradient = function() {
 	
 	// renders rainbow river
 	for ( i = 0; i < stops; i++ ) {
-		var normI = i / stops,
+		var NOFUNrmI = i / stops,
 			hue = this.isHovered ?
-			( normI * 400 + this.colorTime * 9 ) % 360 :
-			( normI * 50 + this.colorTime * 0.5 ) % 360,
-			alpha = this.isHovered ? 0.8 : ( 1 - normI ) * 0.7;
+			( NOFUNrmI * 400 + this.colorTime * 9 ) % 360 :
+			( NOFUNrmI * 50 + this.colorTime * 0.5 ) % 360,
+			alpha = this.isHovered ? 0.8 : ( 1 - NOFUNrmI ) * 0.7;
 		hue = this.isHovered ? ( Math.floor( ( hue / 360 ) * 6 ) / 6 ) * 360 : hue;
 		
-		stop = Math.floor(normI % 1 * 100);
+		stop = Math.floor(NOFUNrmI % 1 * 100);
 		
 		background += this.getGradientStop( stop, hue, alpha );
 	}
@@ -218,7 +228,7 @@ ZZ.Groover.prototype.animateBackgroundGradient = function() {
 
 // ======================= Masker ===============================
 // generates funky masks
-ZZ.Masker = function( elem ) {
+NOFUN.Masker = function( elem ) {
 	
 	this.elem = elem;
 	this.num_masks = parseInt( this.elem.getAttribute('data-num-masks'), 10 );
@@ -232,28 +242,130 @@ ZZ.Masker = function( elem ) {
 
 // ----- event handling ----- //
 
-ZZ.Masker.prototype.handleEvent = function( event ) {
+NOFUN.Masker.prototype.handleEvent = function( event ) {
 	var handlerMethod = event.type + 'Handler';
 	if ( this[ handlerMethod ] ) {
 	this[ handlerMethod ]( event );
 	}
 };
 
-ZZ.Masker.prototype.mouseoverHandler = function() {
+NOFUN.Masker.prototype.mouseoverHandler = function() {
 	this.isHovered = true;
 };
 
-ZZ.Masker.prototype.mouseoutHandler = function() {
+NOFUN.Masker.prototype.mouseoutHandler = function() {
 	this.isHovered = false;
 };
 
 // ----- methods ----- //
 
-ZZ.Masker.prototype.animate = function() {
+NOFUN.Masker.prototype.animate = function() {
 	if(this.isHovered) {
 		var mask_num = (Math.floor( Math.random() * this.num_masks ) + 1);
 		this.elem.style.webkitMaskImage = 'url("assets/img/no-fun-mask-' + mask_num + '.png")';
 	}
 	window.requestAnimationFrame( this.animate.bind( this ) );
 };
-window.addEventListener( 'DOMContentLoaded', ZZ.init, false );
+window.addEventListener( 'DOMContentLoaded', NOFUN.init, false );
+
+
+
+
+
+
+
+
+// bind constructor to window.scroll event
+if ( Modernizr.csstransforms ) {
+
+
+
+}
+
+
+// ======================= Scroller ===============================
+// 3d Scrolling
+NOFUN.Scroller = function( elem ) {
+	
+	this.elem = elem;
+	
+	this.maxZ = parseInt( this.elem.getAttribute('data-max-z-height'), 10 );
+	
+	window.addEventListener( 'scroll', this, false );
+ 
+	this.transformProp = Modernizr.prefixed('transform');
+	
+	// which method should be used to return CSS transform styles
+	this.getScrollTransform = Modernizr.csstransforms3d ? 
+	  this.getScroll3DTransform : this.getScroll2DTransform;
+	
+	
+};
+
+// ----- event handling ----- //
+
+NOFUN.Scroller.prototype.handleEvent = function( event ) {
+	var handlerMethod = event.type + 'Handler';
+	if ( this[ handlerMethod ] ) {
+	this[ handlerMethod ]( event );
+	}
+};
+
+NOFUN.Scroller.prototype.scrollHandler = function( event ) {
+
+  // normalize scroll value from 0 to 1
+  this.scrolled = document.body.scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
+
+  console.log( 'scroll %', this.scrolled);
+
+  this.transformScroll( this.scrolled );
+
+  // // change current selection on nav
+  // this.currentLevel = Math.round( this.scrolled * (this.levels-1) );
+  // 
+  // if ( this.currentLevel !== this.previousLevel && this.$nav ) {
+  //   this.$nav.find('.current').removeClass('current');
+  //   if ( this.currentLevel < 5 ) {
+  //     this.$nav.children().eq( this.currentLevel ).addClass('current');
+  //   }
+  //   this.previousLevel = this.currentLevel;
+  // }
+  
+};
+
+// ----- methods ----- //
+
+// where the magic happens
+// applies transform to content from position of scroll
+NOFUN.Scroller.prototype.transformScroll = function( scroll ) {
+  // bail out if content is not there yet
+  // if ( !this.$content ) {
+  //   return;
+  // }
+
+  this.elem.style[this.transformProp] = this.getScrollTransform( scroll );
+};
+
+NOFUN.Scroller.prototype.getScroll2DTransform = function( scroll ) {
+  // 2D scale is exponential
+  // var scale = Math.pow( 3, scroll * (this.levels - 1) );
+  
+  return 'scale(' + scale + ')';
+};
+
+NOFUN.Scroller.prototype.getScroll3DTransform = function( scroll ) {
+  // var z = ( scroll * (this.levels - 1) * this.distance3d ),
+  //     // how close are we to the nearest level
+  //     leveledZ = this.distance3d / 2 - Math.abs( ( z % this.distance3d ) - this.distance3d / 2 ),
+  //     style;
+  // 
+  // // if close to nearest level, 
+  // // ensures that text doesn't get fuzzy after nav is clicked
+  // if ( leveledZ < 5 ) {
+  //   z = Math.round( z / this.distance3d ) * this.distance3d;
+  // }
+  
+  z = Math.round( scroll * this.maxZ )
+  
+  return 'translate3d( 0, 0, ' + z + 'px )';
+};
