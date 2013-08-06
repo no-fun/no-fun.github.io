@@ -12,10 +12,6 @@ prose:
   rooturl: "_posts"
   siteurl: "http://samargulies.github.io/no-fun/"
   metadata:
-    - name: "layout"
-      field:
-        element: "hidden"
-        value: ""
     - name: "title"
       field:
         element: "text"
