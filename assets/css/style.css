@@ -474,18 +474,22 @@ section {
 section {
 	width: 80%;
 	left: 10%;
+	overflow: scroll;
 }
 
 .scroll-section:nth-child(1) {
 	-webkit-transform: translate3d(0, 0, 0px);
 }
 section:nth-child(1) {
-	-webkit-transform: translate3d(0, 0, 666.6666667px);
+	-webkit-transform: translate3d(0, 0, 250px);
 }
 section:nth-child(2) {
-	-webkit-transform: translate3d(0, 0, 1333.3333333px);
+	-webkit-transform: translate3d(0, 0, 500px);
 }
 section:nth-child(3) {
+	-webkit-transform: translate3d(0, 0, 1500px);
+}
+section:nth-child(4) {
 	-webkit-transform: translate3d(0, 0, 2000px);
 }
 
@@ -494,4 +498,9 @@ section h1 {
 	font-size: 3em;
 	font-family: 'helvetica neue', sans-serif;
 	font-weight: 200;
+}
+
+p {
+	font-size: 1.5em;
+	text-shadow: -1px 1px black, 0 0 30px black;
 }
