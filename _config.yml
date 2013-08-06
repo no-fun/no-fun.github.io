@@ -1,3 +1,23 @@
 name: No Fun
 markdown: redcarpet
 pygments: true
+
+exclude:
+  - .gitignore
+  - README.md
+
+# Prose settings
+prose:
+  media: "assets/img"
+  rooturl: "_posts"
+  siteurl: "http://samargulies.github.io/no-fun/"
+  metadata:
+    - name: "layout"
+      field:
+        element: "hidden"
+        value: ""
+    - name: "title"
+      field:
+        element: "text"
+        label: "Title"
+        value: ""

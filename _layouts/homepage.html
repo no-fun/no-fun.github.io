@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>{{ page.title }}</title>
+	<title>No Fun</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="assets/css/style.css">
@@ -19,7 +19,12 @@
 	</header>
 	
 	<div class="page-content">
-		{{ content }}
+	    {% for post in site.posts %}
+	      <section id="{{post.id}}">
+			  <h1 id="">{{ post.title }}</h1>
+			  {{ post.content }}
+		  </section>
+	    {% endfor %}
 	</div>
 	
 	</div>
