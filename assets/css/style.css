@@ -477,7 +477,7 @@ section {
 	overflow: scroll;
 }
 
-.scroll-section:nth-child(1) {
+/*.scroll-section:nth-child(1) {
 	-webkit-transform: translate3d(0, 0, 0px);
 }
 section:nth-child(1) {
@@ -491,7 +491,7 @@ section:nth-child(3) {
 }
 section:nth-child(4) {
 	-webkit-transform: translate3d(0, 0, 2000px);
-}
+}*/
 
 section h1 {
 	text-align: center;

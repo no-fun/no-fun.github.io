@@ -109,13 +109,17 @@ NOFUN.init = function() {
 	}
 	
 	// Scroll time
+
+	// bind constructor to window.scroll event
+	if ( Modernizr.csstransforms ) {
+
+		NOFUN.scrollers = [];
+		var scrollerElems = document.querySelectorAll('.scroller');
+		len = scrollerElems.length;
 	
-	NOFUN.scrollers = [];
-	var scrollerElems = document.querySelectorAll('.scroller');
-	len = scrollerElems.length;
-	
-	for ( i=0; i<len; i++ ) {
-		NOFUN.scrollers.push( new NOFUN.Scroller( scrollerElems[i] ) );
+		for ( i=0; i<len; i++ ) {
+			NOFUN.scrollers.push( new NOFUN.Scroller( scrollerElems[i] ) );
+		}
 	}
 
 
@@ -184,11 +188,11 @@ NOFUN.Groover.prototype.animateTextShadow = function() {
 
 	// renders rainbow river
 	for ( i = 1; i < this.panes; i++ ) {
-		var NOFUNrmI = i / this.panes,
+		var normI = i / this.panes,
 			hue = this.isHovered ?
-				 ( NOFUNrmI * 400 + this.colorTime * 9 ) % 360 :
-				 ( NOFUNrmI * 50 + this.colorTime * 0.5 ) % 360,
-			alpha = this.isHovered ? 1 : ( 1 - NOFUNrmI ) * 0.9;
+				 ( normI * 400 + this.colorTime * 9 ) % 360 :
+				 ( normI * 50 + this.colorTime * 0.5 ) % 360,
+			alpha = this.isHovered ? 1 : ( 1 - normI ) * 0.9;
 		hue = this.isHovered ? ( Math.floor( ( hue / 360 ) * 6 ) / 6 ) * 360 : hue;
 		x = i * 2;
 		y = i * 2;
@@ -269,36 +273,35 @@ NOFUN.Masker.prototype.animate = function() {
 window.addEventListener( 'DOMContentLoaded', NOFUN.init, false );
 
 
-
-
-
-
-
-
-// bind constructor to window.scroll event
-if ( Modernizr.csstransforms ) {
-
-
-
-}
-
-
 // ======================= Scroller ===============================
-// 3d Scrolling
 NOFUN.Scroller = function( elem ) {
 	
 	this.elem = elem;
 	
+	// Selector for element with translation perspective
+	this.environment = document.querySelector( this.elem.getAttribute('data-env-selector') );
+	
+	// Translated Z axis at end of scroll
 	this.maxZ = parseInt( this.elem.getAttribute('data-max-z-height'), 10 );
 	
+	// Selector for elements to evenly space along scroll-path
+	this.levelSelector = this.elem.getAttribute('data-level-selector');
+	
 	window.addEventListener( 'scroll', this, false );
+	window.addEventListener( 'mousemove', this, false )
  
 	this.transformProp = Modernizr.prefixed('transform');
 	
 	// which method should be used to return CSS transform styles
 	this.getScrollTransform = Modernizr.csstransforms3d ? 
 	  this.getScroll3DTransform : this.getScroll2DTransform;
+	  
+	var levelElems = document.querySelectorAll(this.levelSelector);
+	len = levelElems.length;
 	
+	for ( i=0; i<len; i++ ) {
+		levelElems[i].style[this.transformProp] = this.getScrollTransform( - i / (len - 1) );
+	}
 	
 };
 
@@ -316,8 +319,6 @@ NOFUN.Scroller.prototype.scrollHandler = function( event ) {
   // normalize scroll value from 0 to 1
   this.scrolled = document.body.scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
 
-  console.log( 'scroll %', this.scrolled);
-
   this.transformScroll( this.scrolled );
 
   // // change current selection on nav
@@ -332,6 +333,14 @@ NOFUN.Scroller.prototype.scrollHandler = function( event ) {
   // }
   
 };
+
+NOFUN.Scroller.prototype.mousemoveHandler = function( event ) {
+	
+	var mouseXPercent = event.x / screen.width * 100 % 100;
+	var mouseYPercent = event.y / screen.height * 100 % 100;
+	
+	this.environment.style[this.transformProp + 'Origin'] = mouseXPercent + '% ' + mouseYPercent + '%';
+}
 
 // ----- methods ----- //
 
