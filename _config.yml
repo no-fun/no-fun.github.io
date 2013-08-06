@@ -17,3 +17,7 @@ prose:
         element: "text"
         label: "Title"
         value: ""
+    - name: "layout"
+      field:
+        element: "hidden"
+        value: "homepage"
