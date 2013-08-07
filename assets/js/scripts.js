@@ -149,6 +149,7 @@ NOFUN.Groover = function( elem ) {
 
 	this.elem.addEventListener( 'mouseover', this, false );
 	this.elem.addEventListener( 'mouseout', this, false );
+	this.elem.addEventListener( 'touchstart', this, false );
 
 	// kick off animation
 	this.animateBackgroundGradient();
@@ -170,6 +171,10 @@ NOFUN.Groover.prototype.mouseoverHandler = function() {
 
 NOFUN.Groover.prototype.mouseoutHandler = function() {
 	this.isHovered = false;
+};
+
+NOFUN.Groover.prototype.touchstartHandler = function() {
+	this.isHovered = !this.isHovered;
 };
 
 // ----- methods ----- //
@@ -239,6 +244,7 @@ NOFUN.Masker = function( elem ) {
 
 	this.elem.addEventListener( 'mouseover', this, false );
 	this.elem.addEventListener( 'mouseout', this, false );
+	this.elem.addEventListener( 'touchstart', this, false );
  
 	// kick off animation
 	this.animate();
@@ -259,6 +265,10 @@ NOFUN.Masker.prototype.mouseoverHandler = function() {
 
 NOFUN.Masker.prototype.mouseoutHandler = function() {
 	this.isHovered = false;
+};
+
+NOFUN.Masker.prototype.touchstartHandler = function() {
+	this.isHovered = !this.isHovered;
 };
 
 // ----- methods ----- //
@@ -285,6 +295,7 @@ NOFUN.Scroller = function( elem ) {
 	this.levelSelector = this.elem.getAttribute('data-level-selector');
 	
 	window.addEventListener( 'scroll', this, false );
+	window.addEventListener( 'touchmove', this, false );
  
 	this.transformProp = Modernizr.prefixed('transform');
 	
@@ -310,6 +321,10 @@ NOFUN.Scroller.prototype.handleEvent = function( event ) {
 	}
 };
 
+NOFUN.Scroller.prototype.touchmoveHandler = function( event ) {
+    this.scrollHandler( event );
+}
+
 NOFUN.Scroller.prototype.scrollHandler = function( event ) {
 
   var scrollTop = (document.documentElement && document.documentElement.scrollTop) || 
@@ -317,8 +332,6 @@ NOFUN.Scroller.prototype.scrollHandler = function( event ) {
 
   // normalize scroll value from 0 to 1
   this.scrolled = scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
-
-  console.log( this.scrolled );
 
   this.transformScroll( this.scrolled );
 
