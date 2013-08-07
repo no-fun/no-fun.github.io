@@ -277,10 +277,7 @@ window.addEventListener( 'DOMContentLoaded', NOFUN.init, false );
 NOFUN.Scroller = function( elem ) {
 	
 	this.elem = elem;
-	
-	// Selector for element with translation perspective
-	this.environment = document.querySelector( this.elem.getAttribute('data-env-selector') );
-	
+		
 	// Translated Z axis at end of scroll
 	this.maxZ = parseInt( this.elem.getAttribute('data-max-z-height'), 10 );
 	
@@ -288,7 +285,6 @@ NOFUN.Scroller = function( elem ) {
 	this.levelSelector = this.elem.getAttribute('data-level-selector');
 	
 	window.addEventListener( 'scroll', this, false );
-	window.addEventListener( 'mousemove', this, false )
  
 	this.transformProp = Modernizr.prefixed('transform');
 	
@@ -333,14 +329,6 @@ NOFUN.Scroller.prototype.scrollHandler = function( event ) {
   // }
   
 };
-
-NOFUN.Scroller.prototype.mousemoveHandler = function( event ) {
-	
-	var mouseXPercent = event.x / screen.width * 100 % 100;
-	var mouseYPercent = event.y / screen.height * 100 % 100;
-	
-	this.environment.style[this.transformProp + 'Origin'] = mouseXPercent + '% ' + mouseYPercent + '%';
-}
 
 // ----- methods ----- //
 
