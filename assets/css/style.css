@@ -401,8 +401,8 @@ table {
    ========================================================================== */
 
 body {
-	background-color: hsl(350, 39%, 39%);
-	background-attachment:fixed;
+	background: black url('../img/cygnus-loop-nebula.jpg') fixed;
+	background-size: cover;
 	color: white;	
 	height: 4000px;
 }
