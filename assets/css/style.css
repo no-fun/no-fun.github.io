@@ -406,6 +406,11 @@ body {
 	color: white;	
 	height: 4000px;
 }
+/* preload image masks */
+body:after {
+	display: none;
+	content: url('../img/no-fun-mask-1.png') url('../img/no-fun-mask-2.png') url('../img/no-fun-mask-3.png') url('../img/no-fun-mask-4.png') url('/assets/img/no-fun-mask-5.png') url('../img/no-fun-mask-6.png');
+}
 
 a {
 	color: white;
@@ -471,7 +476,6 @@ section {
 	padding: 0;
 	position: absolute;
 	width: 1px;
-    
 }
 
 .page-title-inner {
