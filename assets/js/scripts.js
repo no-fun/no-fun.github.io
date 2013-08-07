@@ -312,8 +312,13 @@ NOFUN.Scroller.prototype.handleEvent = function( event ) {
 
 NOFUN.Scroller.prototype.scrollHandler = function( event ) {
 
+  var scrollTop = (document.documentElement && document.documentElement.scrollTop) || 
+	              document.body.scrollTop;
+
   // normalize scroll value from 0 to 1
-  this.scrolled = document.body.scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
+  this.scrolled = scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
+
+  console.log( this.scrolled );
 
   this.transformScroll( this.scrolled );
 
