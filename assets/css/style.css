@@ -226,9 +226,9 @@ img {
  * Correct overflow displayed oddly in IE 9.
  */
 
-svg:not(:root) {
+/*svg:not(:root) {
     overflow: hidden;
-}
+}*/
 
 /* ==========================================================================
    Figures
@@ -400,15 +400,96 @@ table {
    No Fun
    ========================================================================== */
 
+/* Fonts */
+
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmono10-regular-webfont.eot');
+    src: url('../fonts/lmmono10-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmono10-regular-webfont.woff') format('woff'),
+         url('../fonts/lmmono10-regular-webfont.ttf') format('truetype'),
+         url('../fonts/lmmono10-regular-webfont.svg#LatinModernMono10Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmono10-italic-webfont.eot');
+    src: url('../fonts/lmmono10-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmono10-italic-webfont.woff') format('woff'),
+         url('../fonts/lmmono10-italic-webfont.ttf') format('truetype'),
+         url('../fonts/lmmono10-italic-webfont.svg#LatinModernMono10Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmonolt10-regular-webfont.eot');
+    src: url('../fonts/lmmonolt10-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmonolt10-regular-webfont.woff') format('woff'),
+         url('../fonts/lmmonolt10-regular-webfont.ttf') format('truetype'),
+         url('../fonts/lmmonolt10-regular-webfont.svg#LatinModernMonoLight10Regular') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmonolt10-oblique-webfont.eot');
+    src: url('../fonts/lmmonolt10-oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmonolt10-oblique-webfont.woff') format('woff'),
+         url('../fonts/lmmonolt10-oblique-webfont.ttf') format('truetype'),
+         url('../fonts/lmmonolt10-oblique-webfont.svg#LatinModernMonoLight10Oblique') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmonolt10-bold-webfont.eot');
+    src: url('../fonts/lmmonolt10-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmonolt10-bold-webfont.woff') format('woff'),
+         url('../fonts/lmmonolt10-bold-webfont.ttf') format('truetype'),
+         url('../fonts/lmmonolt10-bold-webfont.svg#LatinModernMonoLight10Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'LatinModernMono';
+    src: url('../fonts/lmmonolt10-boldoblique-webfont.eot');
+    src: url('../fonts/lmmonolt10-boldoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lmmonolt10-boldoblique-webfont.woff') format('woff'),
+         url('../fonts/lmmonolt10-boldoblique-webfont.ttf') format('truetype'),
+         url('../fonts/lmmonolt10-boldoblique-webfont.svg#LatinModernMonoLight10BdOb') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+
 body {
+	font-family: "LatinModernMono", Consolas, menlo, monaco, monospace;
+	font-size: 1.4em;
+	line-height: 1.4;
+	color: white;	
 	background: black url('../img/cygnus-loop-nebula.jpg') fixed;
 	background-size: cover;
-	color: white;	
 	height: 4000px;
 }
 
+h1 {
+	font-size: 3em;
+	font-weight: 500;
+}
+
+h2 {
+	font-size: 2.1em;
+	font-weight: 500;
+}
+
+h3 {
+	font-size: 2.1em;
+	font-weight: 100;
+}
+
 a {
-	color: white;
+	color: cornflowerblue;
 }
 
 @-webkit-keyframes drift {
@@ -451,7 +532,7 @@ section {
 }
 
 .page-header {
-	mask: url(#m1);
+	mask: url(../masks.svg#mask-1);
 	-webkit-mask-image: url('../img/no-fun-mask-1.png');
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: top center;
@@ -485,7 +566,8 @@ section {
 }
 
 .webcam {
-	background-image: url("http://91.190.32.50/cgi-bin/faststream.jpg?stream=full&fps=6&quality=40"), url("http://91.190.32.50/record/current.jpg");
+	background: red;
+/*	background-image: url("http://91.190.32.50/cgi-bin/faststream.jpg?stream=full&fps=6&quality=40"), url("http://91.190.32.50/record/current.jpg");*/
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -494,6 +576,9 @@ section {
 	width: 80%;
 	left: 10%;
 	overflow: auto;
+	text-align: center;
+	text-shadow: -1px 1px black, 0 0 30px black;
+	max-width: 1200px;
 }
 
 /* Avoid flash of perspective change by moving later sections up a bit */
@@ -501,17 +586,4 @@ section:nth-child(n+1) {
 	-webkit-transform: translate3d(0, 0, 250px);
 			transform: translate3d(0, 0, 250px);
 	
-}
-
-
-section h1 {
-	text-align: center;
-	font-size: 3em;
-	font-family: 'helvetica neue', sans-serif;
-	font-weight: 200;
-}
-
-p {
-	font-size: 1.5em;
-	text-shadow: -1px 1px black, 0 0 30px black;
 }
