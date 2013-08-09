@@ -78,7 +78,7 @@ NOFUN.init = function() {
 	if ( Modernizr.csstransitions ) {
 	NOFUN.colorT = ~~(Math.random()*18);
 	document.body.addClassName('transitions-ready');
-	NOFUN.changeColor();
+/* 	NOFUN.changeColor(); */
 	}
 
 	if ( !document.querySelectorAll ) {
@@ -86,31 +86,31 @@ NOFUN.init = function() {
 	}
 	
 	// Do some groovin'
-	if ( !Modernizr.textshadow || !Modernizr.cssgradients ) {
-	return;
-	}
+	if ( Modernizr.textshadow && Modernizr.cssgradients ) {
 
-	NOFUN.groovers = [];
-	var grooverElems = document.querySelectorAll('.groover');
-	len = grooverElems.length;
-	
-	for ( i=0; i<len; i++ ) {
-		NOFUN.groovers.push( new NOFUN.Groover( grooverElems[i] ) );
+		NOFUN.groovers = [];
+		var grooverElems = document.querySelectorAll('.groover');
+		len = grooverElems.length;
+		
+		for ( i=0; i<len; i++ ) {
+			NOFUN.groovers.push( new NOFUN.Groover( grooverElems[i] ) );
+		}
+		
 	}
 	
 	// Do some maskin'
-	// TODO: add feature detection
-	NOFUN.masks = [];
-	var maskElems = document.querySelectorAll('.mask');
-	len = maskElems.length;
-	
-	for ( i=0; i<len; i++ ) {
-		NOFUN.masks.push( new NOFUN.Masker( maskElems[i] ) );
+	if ( Modernizr.cssmask ) {
+		// TODO: add feature detection
+		NOFUN.masks = [];
+		var maskElems = document.querySelectorAll('.mask');
+		len = maskElems.length;
+		
+		for ( i=0; i<len; i++ ) {
+			NOFUN.masks.push( new NOFUN.Masker( maskElems[i] ) );
+		}
 	}
 	
 	// Scroll time
-
-	// bind constructor to window.scroll event
 	if ( Modernizr.csstransforms ) {
 
 		NOFUN.scrollers = [];
@@ -126,12 +126,14 @@ NOFUN.init = function() {
 };
 
 // cycles link colors
+/*
 NOFUN.changeColor = function() {
 	document.body.removeClassName( 'color' + NOFUN.colorT % 18 );
 	NOFUN.colorT++;
 	document.body.addClassName( 'color' + NOFUN.colorT % 18 );
 	setTimeout( NOFUN.changeColor, 3000 );
 };
+*/
 
 
 
@@ -152,7 +154,8 @@ NOFUN.Groover = function( elem ) {
 	this.elem.addEventListener( 'touchstart', this, false );
 
 	// kick off animation
-	this.animateBackgroundGradient();
+	Modernizr.cssmask ? this.animateBackgroundGradient() :
+						this.animateTextShadow();
 
 };
 

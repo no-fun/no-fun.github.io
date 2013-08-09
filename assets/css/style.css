@@ -470,6 +470,9 @@ body {
 	color: white;	
 	background: black url('../img/cygnus-loop-nebula.jpg') fixed;
 	background-size: cover;
+}
+/* TODO: Move to js? */
+.csstransforms body {
 	height: 4000px;
 }
 
@@ -504,7 +507,7 @@ a {
 	75% { transform-origin: 55% 75%; }
 }
 
-.environment {
+.csstransforms .environment {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -520,9 +523,9 @@ a {
 
 }
 
-.container,
-.scroll-section,
-section {
+.csstransforms .container,
+.csstransforms .scroll-section,
+.csstransforms section {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -531,8 +534,19 @@ section {
 			transform-style: preserve-3d;
 }
 
-.page-header {
-	mask: url(../masks.svg#mask-1);
+.no-csstransforms .container {
+	width: 80%;
+	margin: 0 auto;
+	max-width: 900px;
+	padding: 10px;
+	text-align: center;
+	text-shadow: -1px 1px black, 0 0 30px black;
+}
+
+/* TODO: use this instead of mask where not supported */
+/* TODO: add firefox mask support */
+.cssmask .page-header {
+/* 	mask: url(../masks.svg#mask-1); */
 	-webkit-mask-image: url('../img/no-fun-mask-1.png');
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: top center;
@@ -541,9 +555,12 @@ section {
 	height: 100%;
 	width: 100%;
 }
-
 .page-title {
-	/* TODO: use this instead of mask where not supported */
+	font-size: 5em;
+	font-style: italic;
+	font-weight: 500;
+}
+.cssmask .page-title {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 1px;
@@ -554,25 +571,27 @@ section {
 	width: 1px;
 }
 
-.page-title-inner {
+.no-cssmask .page-title-inner { display: none; }
+.cssmask .page-title-inner {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
 }
 
+
+
 .groover {
 	z-index: 2;
 }
 
 .webcam {
-	background: red;
 /*	background-image: url("http://91.190.32.50/cgi-bin/faststream.jpg?stream=full&fps=6&quality=40"), url("http://91.190.32.50/record/current.jpg");*/
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-section {
+.csstransforms section {
 	width: 80%;
 	left: 10%;
 	overflow: auto;
@@ -584,7 +603,7 @@ section {
 /* Avoid flash of perspective change by moving later sections up a bit */
 section:nth-child(n+1) {
 	-webkit-transform: translate3d(0, 0, 250px);
-			transform: translate3d(0, 0, 250px);
+					transform: translate3d(0, 0, 250px);
 }
 
 .embed-container { 
