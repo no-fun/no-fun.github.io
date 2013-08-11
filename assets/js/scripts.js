@@ -303,7 +303,7 @@ NOFUN.Scroller.prototype.handleEvent = function( event ) {
 };
 
 NOFUN.Scroller.prototype.touchmove = function( event ) {
-    this.scrollHandler( event );
+    this.scroll( event );
 }
 
 NOFUN.Scroller.prototype.scroll = function( event ) {
