@@ -74,15 +74,9 @@ var NOFUN = window.NOFUN = {};
 
 NOFUN.init = function() {
 	var i, len;
-		
-	if ( Modernizr.csstransitions ) {
-	NOFUN.colorT = ~~(Math.random()*18);
-	document.body.addClassName('transitions-ready');
-/* 	NOFUN.changeColor(); */
-	}
 
 	if ( !document.querySelectorAll ) {
-	return;
+		return;
 	}
 	
 	// Do some groovin'
@@ -125,18 +119,6 @@ NOFUN.init = function() {
 
 };
 
-// cycles link colors
-/*
-NOFUN.changeColor = function() {
-	document.body.removeClassName( 'color' + NOFUN.colorT % 18 );
-	NOFUN.colorT++;
-	document.body.addClassName( 'color' + NOFUN.colorT % 18 );
-	setTimeout( NOFUN.changeColor, 3000 );
-};
-*/
-
-
-
 // ======================= Groover ===============================
 // generates funky H1 super text-shadows
 NOFUN.Groover = function( elem ) {
@@ -145,8 +127,7 @@ NOFUN.Groover = function( elem ) {
 	this.panes = parseInt( this.elem.getAttribute('data-groover-panes'), 10 );
 	
 	this.colorTime = ~~( Math.random() * 360 );
-	this.waveTheta = 0;
-
+	
 	this.colorIncrement = -1;
 
 	this.elem.addEventListener( 'mouseover', this, false );
@@ -162,21 +143,20 @@ NOFUN.Groover = function( elem ) {
 // ----- event handling ----- //
 
 NOFUN.Groover.prototype.handleEvent = function( event ) {
-	var handlerMethod = event.type + 'Handler';
-	if ( this[ handlerMethod ] ) {
-	this[ handlerMethod ]( event );
+	if ( this[ event.type ] ) {
+		this[ event.type ]( event );
 	}
 };
 
-NOFUN.Groover.prototype.mouseoverHandler = function() {
+NOFUN.Groover.prototype.mouseover = function() {
 	this.isHovered = true;
 };
 
-NOFUN.Groover.prototype.mouseoutHandler = function() {
+NOFUN.Groover.prototype.mouseout = function() {
 	this.isHovered = false;
 };
 
-NOFUN.Groover.prototype.touchstartHandler = function() {
+NOFUN.Groover.prototype.touchstart = function() {
 	this.isHovered = !this.isHovered;
 };
 
@@ -256,21 +236,20 @@ NOFUN.Masker = function( elem ) {
 // ----- event handling ----- //
 
 NOFUN.Masker.prototype.handleEvent = function( event ) {
-	var handlerMethod = event.type + 'Handler';
-	if ( this[ handlerMethod ] ) {
-	this[ handlerMethod ]( event );
+	if ( this[ event.type ] ) {
+		this[ event.type ]( event );
 	}
 };
 
-NOFUN.Masker.prototype.mouseoverHandler = function() {
+NOFUN.Masker.prototype.mouseover = function() {
 	this.isHovered = true;
 };
 
-NOFUN.Masker.prototype.mouseoutHandler = function() {
+NOFUN.Masker.prototype.mouseout = function() {
 	this.isHovered = false;
 };
 
-NOFUN.Masker.prototype.touchstartHandler = function() {
+NOFUN.Masker.prototype.touchstart = function() {
 	this.isHovered = !this.isHovered;
 };
 
@@ -307,10 +286,10 @@ NOFUN.Scroller = function( elem ) {
 	  this.getScroll3DTransform : this.getScroll2DTransform;
 	  
 	var levelElems = document.querySelectorAll(this.levelSelector);
-	len = levelElems.length;
+	this.levels = levelElems.length;
 	
-	for ( i=0; i<len; i++ ) {
-		levelElems[i].style[this.transformProp] = this.getScrollTransform( - i / (len - 1) );
+	for ( i=0; i<this.levels; i++ ) {
+		levelElems[i].style[this.transformProp] = this.getScrollTransform( -1 * i / (this.levels - 1) );
 	}
 	
 };
@@ -318,36 +297,24 @@ NOFUN.Scroller = function( elem ) {
 // ----- event handling ----- //
 
 NOFUN.Scroller.prototype.handleEvent = function( event ) {
-	var handlerMethod = event.type + 'Handler';
-	if ( this[ handlerMethod ] ) {
-	this[ handlerMethod ]( event );
+	if ( this[ event.type ] ) {
+		this[ event.type ]( event );
 	}
 };
 
-NOFUN.Scroller.prototype.touchmoveHandler = function( event ) {
+NOFUN.Scroller.prototype.touchmove = function( event ) {
     this.scrollHandler( event );
 }
 
-NOFUN.Scroller.prototype.scrollHandler = function( event ) {
+NOFUN.Scroller.prototype.scroll = function( event ) {
 
-  var scrollTop = (document.documentElement && document.documentElement.scrollTop) || 
-	              document.body.scrollTop;
-
-  // normalize scroll value from 0 to 1
-  this.scrolled = scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
-
-  this.transformScroll( this.scrolled );
-
-  // // change current selection on nav
-  // this.currentLevel = Math.round( this.scrolled * (this.levels-1) );
-  // 
-  // if ( this.currentLevel !== this.previousLevel && this.$nav ) {
-  //   this.$nav.find('.current').removeClass('current');
-  //   if ( this.currentLevel < 5 ) {
-  //     this.$nav.children().eq( this.currentLevel ).addClass('current');
-  //   }
-  //   this.previousLevel = this.currentLevel;
-  // }
+	var scrollTop = (document.documentElement && document.documentElement.scrollTop) || 
+					document.body.scrollTop;
+	
+	// normalize scroll value from 0 to 1
+	this.scrolled = scrollTop / (document.body.scrollHeight - this.elem.clientHeight);
+	
+	this.transformScroll( this.scrolled );
   
 };
 
@@ -356,34 +323,34 @@ NOFUN.Scroller.prototype.scrollHandler = function( event ) {
 // where the magic happens
 // applies transform to content from position of scroll
 NOFUN.Scroller.prototype.transformScroll = function( scroll ) {
-  // bail out if content is not there yet
-  // if ( !this.$content ) {
-  //   return;
-  // }
-
-  this.elem.style[this.transformProp] = this.getScrollTransform( scroll );
+	this.elem.style[this.transformProp] = this.getScrollTransform( scroll );
 };
 
 NOFUN.Scroller.prototype.getScroll2DTransform = function( scroll ) {
-  // 2D scale is exponential
-  // var scale = Math.pow( 3, scroll * (this.levels - 1) );
-  
-  return 'scale(' + scale + ')';
+	// 2D scale is exponential
+	var scale = Math.pow( 3, scroll );
+	
+	return 'scale(' + scale + ')';
 };
 
 NOFUN.Scroller.prototype.getScroll3DTransform = function( scroll ) {
-  // var z = ( scroll * (this.levels - 1) * this.distance3d ),
-  //     // how close are we to the nearest level
-  //     leveledZ = this.distance3d / 2 - Math.abs( ( z % this.distance3d ) - this.distance3d / 2 ),
-  //     style;
-  // 
-  // // if close to nearest level, 
-  // // ensures that text doesn't get fuzzy after nav is clicked
-  // if ( leveledZ < 5 ) {
-  //   z = Math.round( z / this.distance3d ) * this.distance3d;
-  // }
-  
-  z = Math.round( scroll * this.maxZ )
-  
-  return 'translate3d( 0, 0, ' + z + 'px )';
+	// var z = ( scroll * (this.levels - 1) * this.distance3d ),
+	//     // how close are we to the nearest level
+	//     leveledZ = this.distance3d / 2 - Math.abs( ( z % this.distance3d ) - this.distance3d / 2 ),
+	//     style;
+	// 
+	// // if close to nearest level, 
+	// // ensures that text doesn't get fuzzy after nav is clicked
+	// if ( leveledZ < 5 ) {
+	//   z = Math.round( z / this.distance3d ) * this.distance3d;
+	// }
+	
+	z = scroll * this.maxZ
+	
+	y = Math.round( Math.sin( scroll * this.levels / 2.5 ) * this.maxZ * 1000000 ) / 1000000;
+	
+	x = (Math.round( Math.sin( scroll * this.levels / 2 ) * this.maxZ * 1000000 ) / 1000000);
+
+		
+	return 'translate3d( ' + x + 'px, ' + y + 'px, ' + z + 'px )';
 };

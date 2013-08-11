@@ -556,7 +556,8 @@ a {
 	width: 100%;
 }
 .page-title {
-	font-size: 5em;
+	font-size: 7em;
+	line-height: 1;
 	font-style: italic;
 	font-weight: 500;
 }
@@ -601,9 +602,9 @@ a {
 }
 
 /* Avoid flash of perspective change by moving later sections up a bit */
-section:nth-child(n+1) {
+section {
 	-webkit-transform: translate3d(0, 0, 250px);
-					transform: translate3d(0, 0, 250px);
+			transform: translate3d(0, 0, 250px);
 }
 
 .embed-container { 
