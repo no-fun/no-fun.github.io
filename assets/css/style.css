@@ -598,23 +598,15 @@ img {
 }
 
 .csstransforms section {
-	width: 100%;
-	max-width: 1000px;
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;
-	padding: 10px 5%;
+	width: 90%;
+	max-width: 800px;
+	height: 98%;
 	overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
 	text-align: center;
 	text-shadow: -1px 1px hsl(0, 0%, 0%), 0 0 30px hsl(0, 0%, 0%);
-}
-
-@media screen and (min-width: 1000px) {
-	.csstransforms section {
-		margin-left: -500px;
-		left: 50%;
-		padding: 10%;
-	}
 }
 
 /* Avoid flash of perspective change by moving later sections up a bit */
