@@ -3,14 +3,14 @@
 <head>
 	<title>No Fun</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<script src="assets/js/modernizer.js"></script>
 </head>
 <body>
 	
 	<div class="environment">
-	<div class="container scroller" data-max-z-height="-2000" data-level-selector="section,.scroll-section" data-env-selector=".environment">
+	<div class="container scroller" data-max-z-height="-2500" data-level-selector="section,.scroll-section" data-env-selector=".environment">
 	
 	<header class="page-header mask scroll-section" data-num-masks="6">
 		<h1 class="page-title groover" data-groover-panes="20">No Fun</h1>
@@ -20,7 +20,7 @@
 	
 	<div class="page-content">
 	    {% for post in site.posts %}
-	      <section id="{{post.id}}">
+	      <section id="{{ post.html-id }}">
 			  {{ post.content }}
 		  </section>
 	    {% endfor %}

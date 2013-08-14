@@ -471,9 +471,10 @@ body {
 	background: black url('../img/cygnus-loop-nebula.jpg') fixed;
 	background-size: cover;
 }
+
 /* TODO: Move to js? */
 .csstransforms body {
-	height: 4000px;
+	height: 3000px;
 }
 
 h1 {
@@ -493,6 +494,10 @@ h3 {
 
 a {
 	color: cornflowerblue;
+}
+
+img {
+	max-width: 100%;
 }
 
 @-webkit-keyframes drift {
@@ -593,18 +598,29 @@ a {
 }
 
 .csstransforms section {
-	width: 80%;
-	left: 10%;
+	width: 100%;
+	max-width: 1000px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	padding: 10px 5%;
 	overflow: auto;
 	text-align: center;
-	text-shadow: -1px 1px black, 0 0 30px black;
-	max-width: 1200px;
+	text-shadow: -1px 1px hsl(0, 0%, 0%), 0 0 30px hsl(0, 0%, 0%);
+}
+
+@media screen and (min-width: 1000px) {
+	.csstransforms section {
+		margin-left: -500px;
+		left: 50%;
+		padding: 10%;
+	}
 }
 
 /* Avoid flash of perspective change by moving later sections up a bit */
 section {
-	-webkit-transform: translate3d(0, 0, 250px);
-			transform: translate3d(0, 0, 250px);
+	-webkit-transform: translate3d(0, 0, 10000px);
+			transform: translate3d(0, 0, 10000px);
 }
 
 .embed-container { 
@@ -623,4 +639,35 @@ section {
 	height: 100%; 
 }
 
+/* TODO: Add styles for no-csstransforms and no-csstransforms3d */
+
+.csstransforms3d #screen {
+	max-width: none;
+	width: 10000px;
+	height: 10000px;
+	overflow: hidden;
+	margin-top: -5000px;
+	margin-left: -5000px;
+	background: url('../img/no-fun-smokescreen.png');
+}
+
+.csstransforms3d #screen img {
+	width: 100%;
+	height: auto;
+}
+
+/*.csstransforms3d #screen-2 {
+	max-width: none;
+	left: auto;
+	width: 10000px;
+	height: 10000px;
+	overflow: hidden;
+	margin-top: -5000px;
+	margin-left: -5000px;
+}
+
+.csstransforms3d #screen-2 img {
+	width: 100%;
+	height: auto;
+}*/
 

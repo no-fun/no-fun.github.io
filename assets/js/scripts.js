@@ -133,6 +133,7 @@ NOFUN.Groover = function( elem ) {
 	this.elem.addEventListener( 'mouseover', this, false );
 	this.elem.addEventListener( 'mouseout', this, false );
 	this.elem.addEventListener( 'touchstart', this, false );
+	window.addEventListener( 'scroll', this, false );
 
 	// kick off animation
 	Modernizr.cssmask ? this.animateBackgroundGradient() :
@@ -159,6 +160,10 @@ NOFUN.Groover.prototype.mouseout = function() {
 NOFUN.Groover.prototype.touchstart = function() {
 	this.isHovered = !this.isHovered;
 };
+
+NOFUN.Groover.prototype.scroll = function() {
+	this.isHovered = false;
+}
 
 // ----- methods ----- //
 
@@ -228,7 +233,8 @@ NOFUN.Masker = function( elem ) {
 	this.elem.addEventListener( 'mouseover', this, false );
 	this.elem.addEventListener( 'mouseout', this, false );
 	this.elem.addEventListener( 'touchstart', this, false );
- 
+ 	window.addEventListener( 'scroll', this, false );
+
 	// kick off animation
 	this.animate();
 };
@@ -251,6 +257,10 @@ NOFUN.Masker.prototype.mouseout = function() {
 
 NOFUN.Masker.prototype.touchstart = function() {
 	this.isHovered = !this.isHovered;
+};
+
+NOFUN.Masker.prototype.scroll = function() {
+	this.isHovered = false;
 };
 
 // ----- methods ----- //
@@ -278,7 +288,8 @@ NOFUN.Scroller = function( elem ) {
 	
 	window.addEventListener( 'scroll', this, false );
 	window.addEventListener( 'touchmove', this, false );
- 
+	window.addEventListener( 'gesturechange', this, false );
+
 	this.transformProp = Modernizr.prefixed('transform');
 	
 	// which method should be used to return CSS transform styles
@@ -302,9 +313,24 @@ NOFUN.Scroller.prototype.handleEvent = function( event ) {
 	}
 };
 
+NOFUN.Scroller.prototype.gesturechange = function( event ) {
+	
+	event.preventDefault();
+	
+	var scrollTop = (document.documentElement && document.documentElement.scrollTop) || 
+					document.body.scrollTop;
+	
+	var scale = (event.scale > 1) ? (5 * event.scale) : (-5 / event.scale);
+	
+	scrollTop = scrollTop + scale;
+	
+	window.scroll( 0, scrollTop );
+
+};
+
 NOFUN.Scroller.prototype.touchmove = function( event ) {
-    this.scroll( event );
-}
+	this.scroll( event );
+};
 
 NOFUN.Scroller.prototype.scroll = function( event ) {
 
@@ -326,11 +352,15 @@ NOFUN.Scroller.prototype.transformScroll = function( scroll ) {
 	this.elem.style[this.transformProp] = this.getScrollTransform( scroll );
 };
 
+// TODO: Get 2d scroller math working
 NOFUN.Scroller.prototype.getScroll2DTransform = function( scroll ) {
+
 	// 2D scale is exponential
-	var scale = Math.pow( 3, scroll );
+	var scale = Math.pow( 3, -scroll );
 	
-	return 'scale(' + scale + ')';
+	var offset = ( - scroll * this.levels * this.elem.clientHeight ) / scale;
+	
+	return 'scale(' + scale + ') translateY(' + offset + 'px)';
 };
 
 NOFUN.Scroller.prototype.getScroll3DTransform = function( scroll ) {
