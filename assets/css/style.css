@@ -502,13 +502,13 @@ img {
 
 @-webkit-keyframes drift {
 	25% { -webkit-transform-origin: 45% 75%; }
-	50% { -webkit-transform-origin: 55% 75%; }
+	50% { -webkit-transform-origin: 55% 75%; -webkit-transform: perspective(250px); }
 	75% { -webkit-transform-origin: 55% 75%; }
 }
 
 @keyframes drift {
 	25% { transform-origin: 45% 75%; }
-	50% { transform-origin: 55% 75%; }
+	50% { transform-origin: 55% 75%; transform: perspective(250px); }
 	75% { transform-origin: 55% 75%; }
 }
 
